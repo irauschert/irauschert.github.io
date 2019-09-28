@@ -24,8 +24,9 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
   <script src="js/login.js"></script>
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
 
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id" content="732528339229-m1kf7f3fgks6an07j1a6drsh13spnc80.apps.googleusercontent.com">
 </head>
 
 <body class="inicio">
@@ -48,13 +49,7 @@
               <a data-toggle="modal" href="#forgotPassword">¿Olvidó su contraseña?</a>
             </form>
             <hr>
-            <a id="google-button" class="btn btn-block btn-social btn-google">
-              <i class="fa fa-google"></i> Continuar con Google
-            </a>
-            <a id="facebook-button" class="btn btn-block btn-social btn-facebook">
-              <i class="fa fa-facebook"></i> Continuar con Facebook
-            </a>
-
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
           </div>
           </form>
         </div>
