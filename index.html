@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+
+  <title>eMercado - Todo lo que busques está aquí</title>
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.12.0/bootstrap-social.min.css">
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="js/login.js"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+</head>
+
+<body class="inicio">
+  <div class="container">
+    <br><br><br><br><br>
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-6">
+        <div class="card text-center tarjeta">
+          <img class="card-img-top" src="img/logo.png" alt="Card image cap">
+          <div class="card-body">
+            <form method="post" name=form action="portada.html">
+              <p>Inicie sesión para continuar</p>
+              <div class="form-group">
+                <input id="username" class="form-control" placeholder="E-mail o Usuario" type="text" required>
+                <input id="password" class="form-control" placeholder="*********" type="password" required>
+                <br>
+                <input type="button" value="Ingresar" class="btn btn-pink" onclick="login()" />
+              </div>
+              <a data-toggle="modal" href="#forgotPassword">¿Olvidó su contraseña?</a>
+            </form>
+            <hr>
+            <a id="google-button" class="btn btn-block btn-social btn-google">
+              <i class="fa fa-google"></i> Continuar con Google
+            </a>
+            <a id="facebook-button" class="btn btn-block btn-social btn-facebook">
+              <i class="fa fa-facebook"></i> Continuar con Facebook
+            </a>
+
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="modal fade" id="forgotPassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLabel">Ingrese su E-mail para recuperar su contraseña</h4>
+          <button type="submit" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Direccion de E-mail" id="recipient-name">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-pink" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-pink">Enviar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
