@@ -22,7 +22,8 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
   <script src="js/login.js"></script>
-
+  
+  <script src="https://apis.google.com/js/api.js"></script>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <meta name="google-signin-client_id" content="732528339229-m1kf7f3fgks6an07j1a6drsh13spnc80.apps.googleusercontent.com">
 </head>
@@ -47,7 +48,7 @@
               <a data-toggle="modal" href="#forgotPassword">¿Olvidó su contraseña?</a>
             </form>
             <hr>
-            <div class="g-signin2" data-onsuccess="onSignIn" data-redirecturi="http://google.com"></div>
+            <div class="g-signin2" data-onsuccess="onSignIn" data-scope="https://www.googleapis.com/auth/plus.login" data-redirecturi="http://google.com"></div>
           </div>
           </form>
         </div>
