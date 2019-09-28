@@ -14,3 +14,7 @@ function login() {
         return false;
     }
 }
+
+function onSignIn() {
+    window.location = "http://irauschert.github.io/portada.html"
+  }
