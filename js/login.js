@@ -18,6 +18,7 @@ function login() {
 function onSignIn() {
     alert("has entrado correctamente con Google, bien yo!");
     
+    var auth2 = gapi.auth2.init();
     var profile = auth2.currentUser.get().getBasicProfile();
     console.log('ID: ' + profile.getId());
     console.log('Full Name: ' + profile.getName());
