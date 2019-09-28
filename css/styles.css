@@ -152,3 +152,11 @@ a.custom-card:hover {
   background-color: #D61C6C;
   color: #F5F5F5;
 }
+
+.g-signin2{
+  width: 100%;
+}
+
+.g-signin2 > div{
+  margin: 0 auto;
+}
