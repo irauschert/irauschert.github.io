@@ -1,5 +1,5 @@
 function showUsername(){
-    var usernameToShow = `Bienvenida ` + localStorage.getItem("username") + `!`;
+    var usernameToShow = `Bienvenide ` + localStorage.getItem("username") + `!`;
 
     document.getElementById("usernameFromLogin").innerHTML = usernameToShow;
 }
