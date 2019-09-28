@@ -19,7 +19,7 @@ function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
     let username = profile.getName();
 
-    alert(username);
+    localStorage.setItem("username", username);
+    window.location = "http://irauschert.github.io/portada.html"
 }
 
-//window.location = "http://irauschert.github.io/portada.html"
