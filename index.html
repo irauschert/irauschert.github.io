@@ -24,7 +24,8 @@
   <script src="js/login.js"></script>
 
   <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <meta name="google-signin-client_id" content="732528339229-m1kf7f3fgks6an07j1a6drsh13spnc80.apps.googleusercontent.com">
+  <meta name="google-signin-client_id"
+    content="732528339229-m1kf7f3fgks6an07j1a6drsh13spnc80.apps.googleusercontent.com">
 </head>
 
 <body class="inicio">
@@ -47,13 +48,13 @@
               <a data-toggle="modal" href="#forgotPassword">¿Olvidó su contraseña?</a>
             </form>
             <hr>
-            <div class="text-center g-signin2" data-onsuccess="onSignIn"></div>
+            <div class="text-center">
+              <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            </div>
           </div>
-          </form>
         </div>
       </div>
     </div>
-  </div>
   </div>
   <div class="modal fade" id="forgotPassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
