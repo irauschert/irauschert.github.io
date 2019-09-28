@@ -15,8 +15,11 @@ function login() {
     }
 }
 
-function onSignIn() {
-    alert("Has entrado correctamente con Google, bien yo!");
-    window.location = "http://irauschert.github.io/portada.html"
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    let username = profile.getName();
 
+    alert(username);
 }
+
+//window.location = "http://irauschert.github.io/portada.html"
