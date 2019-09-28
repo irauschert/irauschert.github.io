@@ -151,3 +151,11 @@ document.addEventListener("DOMContentLoaded", function (e) {
         showProductsList(productsArray);
     });
 });
+
+function showUsername(){
+    var usernameToShow = `Bienvenide ` + localStorage.getItem("username") + `!`;
+
+    document.getElementById("usernameFromLogin").innerHTML = usernameToShow;
+}
+
+showUsername();
