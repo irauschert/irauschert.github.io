@@ -26,9 +26,10 @@ function onSignIn() {
     console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail());
 
-    localStorage.setItem("username", profile.getName());
-      }
-      
+    usernameToShow = profile.getName()
+    localStorage.setItem("username", usernameToShow);
+
+    alert(usernameToShow);
 
     window.location = "http://irauschert.github.io/portada.html"
 
