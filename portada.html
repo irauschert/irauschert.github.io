@@ -53,22 +53,9 @@
           <div class="dropdown-menu dropdown-menu-right bg-dark">
             <button type="button" class="btn btn-dark text-center" onclick="location.href='cart.html';">Ver mi carrito <span class="glyphicon glyphicon-shopping-cart"></span> </button>
             <div class="dropdown-divider"></div>
-            <button type="button" class="btn btn-dark text-center" onclick="logout()">Cerrar sesion</button>
-            <div class="dropdown-divider"></div>
-            <button type="button" class="btn btn-dark text-center" href="index.html" onclick="signOut();">Sign Out from Google</button>
+            <button type="button" class="btn btn-dark text-center" href="index.html" onclick="signOut();">Cerrar Sesión <span class="glyphicon glyphicon-user"></span></button>
             <script>
-              function signOut() {
-                var auth2 = gapi.auth2.getAuthInstance();
-                auth2.signOut().then(function () {
-                  console.log('User signed out.');
-                  window.location.replace("index.html");
-                });
-              }
-              function onLoad() {
-                gapi.load('auth2', function() {
-                  gapi.auth2.init();
-                });
-              }
+              
             </script>
           </div>
         </li>
