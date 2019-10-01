@@ -80,6 +80,14 @@ function sortAndShowProducts(sortCriteria, productsArray) {
     showProductsList(currentProductsArray);
 }
 
+function showUsername(){
+    var usernameToShow = `Bienvenide ` + localStorage.getItem("username") + `!`;
+
+    document.getElementById("usernameFromLogin").innerHTML = usernameToShow;
+}
+
+showUsername();
+
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
@@ -151,11 +159,3 @@ document.addEventListener("DOMContentLoaded", function (e) {
         showProductsList(productsArray);
     });
 });
-
-function showUsername(){
-    var usernameToShow = `Bienvenide ` + localStorage.getItem("username") + `!`;
-
-    document.getElementById("usernameFromLogin").innerHTML = usernameToShow;
-}
-
-showUsername();

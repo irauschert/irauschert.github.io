@@ -17,7 +17,8 @@
   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
+  <meta name="google-signin-client_id"
+  content="732528339229-m1kf7f3fgks6an07j1a6drsh13spnc80.apps.googleusercontent.com">
 </head>
 
 <body>
@@ -48,7 +49,7 @@
           <div class="dropdown-menu dropdown-menu-right bg-dark">
             <button type="button" class="btn btn-dark text-center" onclick="location.href='cart.html';">Ver mi carrito <span class="glyphicon glyphicon-shopping-cart"></span> </button>
             <div class="dropdown-divider"></div>
-            <button type="button" class="btn btn-dark text-center" onclick="logout()">Cerrar sesion</button>
+            <button type="button" class="btn btn-dark text-center" onclick="logout(); signOut();">Cerrar sesion</button>
           </div>
         </li>
       </ul>
