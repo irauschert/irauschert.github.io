@@ -12,23 +12,6 @@
 
   <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-
-  <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
-
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
-    }
-  </style>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
   <link href="css/dropzone.css" rel="stylesheet">
@@ -42,7 +25,6 @@
   <script src="js/vendor/bootbox.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/cart.js"></script>
-
 </head>
 
 <body>
@@ -79,83 +61,198 @@
       <p class="lead">Verás aquí todos los prodctos que hayas agregado a tu carrito.</p>
     </div>
     <div class="container">
-      <div id="articlesInCart"></div>
+      <div id="articlesHTML">
+        <p>Aún no tienes nada en el carrito</p>
+      </div>
     </div>
+    <div id="subtotalPerArticleHTML"></div>
+    <div id="subtotalHTML"></div>
+    <div class="container">
+      <div class="accordion" id="accordionExample">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h2 class="mb-0">
+              <button class="btn btn-light btn-block" type="button" data-toggle="collapse" data-target="#collapseOne"
+                aria-expanded="true" aria-controls="collapseOne">
+                Seleccionar método de envío
+              </button>
+            </h2>
+          </div>
+          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-10 col-md-8">
+                  <form>
+                    <div class="custom-control custom-radio">
+                      <input id="goldradio" name="publicationType" type="radio" class="custom-control-input "
+                        required>
+                      <label class="custom-control-label" for="goldradio">Premium (2-5 días) Costo del 15% sobre el
+                        subtotal</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                      <input id="premiumradio" name="publicationType" type="radio" class="custom-control-input"
+                        required>
+                      <label class=" custom-control-label" for="premiumradio">Express (5-8 días) Costo del 7% sobre el
+                        subtotal</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                      <input id="standardradio" name="publicationType" type="radio" class="custom-control-input"
+                        required>
+                      <label class="custom-control-label" for="standardradio">Standard (12-15 días) Costo del 5% sobre
+                        el subtotal</label>
+                    </div>
+                  </form>
+                  <span id="ETA"></span>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                  <p class="text-right">Costo del envio: <span id=shippingCost> - </span></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <p class="text-center"><span id="total"></span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingTwo">
+              <h2 class="mb-0">
+                <button class="btn btn-light btn-block collapsed" type="button" data-toggle="collapse"
+                  data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  ¿Donde quieres recibir tu compra?
+                </button>
+              </h2>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+              <div class="card-body">
+                <form>
+                  <div class="form-row">
+                    <div class="col-lg-10">
+                      <div class="form-group">
+                        <label for="inputAddress">Dirección</label>
+                        <input type="text" class="form-control" id="inputStreetName" placeholder="Calle">
+                      </div>
+                    </div>
+                    <div class="col-lg-2">
+                      <div class="form-group">
+                        <label for="inputAddress2">Numero</label>
+                        <input type="number" class="form-control" id="inputStreetNumber" placeholder="Nº">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-lg-10">
+                      <div class="form-group">
+                        <label for="inputAddress">Esquina</label>
+                        <input type="text" class="form-control" id="inputStreetName" placeholder="Calle">
+                      </div>
+                    </div>
+                    <div class="col-lg-2">
+                      <div class="form-group">
+                        <label for="inputAddress2">CP</label>
+                        <input type="number" class="form-control" id="inputStreetNumber" placeholder="Nº">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-6">
+                      <label for="inputCity">Ciudad</label>
+                      <input type="text" class="form-control" id="inputCity">
+                    </div>
+                    <div class="form-group col-6">
+                      <label for="inputState">Pais</label>
+                      <input id="inputState" class="form-control">
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingThree">
+              <h2 class="mb-0">
+                <button class="btn btn-light btn-block collapsed" type="button" data-toggle="collapse"
+                  data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Selecciona una forma de pago
+                </button>
+              </h2>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+              <div class="card-body">
+                <div class="container">
+                  <form>
+                    <div class="row">
+                      <div class="custom-control custom-radio">
+                        <input id="creditCardPaymentRadio" name="paymentType" type="radio" class="custom-control-input" required>
+                        <label class="custom-control-label" for="creditCardPaymentRadio">Tarjeta de crédito</label>
+                      </div>
+                    </div>
+                    <hr>
+                    <div id="tarjetaDeCredito">
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label for="creditCardNumber" required>Número de tarjeta</label>
+                        <input type="text" class="form-control" id="creditCardNumber" placeholder="XXXX-XXXX-XXXX-XXXX" value="" required>
+                        <div class="invalid-feedback">
+                          Ingresa un número de tarjeta
+                        </div>
+                      </div>
+                      <div class="col-md-4 mb-3">
+                        <label for="creditCardCVV">Código de seg.</label>
+                        <input type="number" class="form-control" id="creditCardCVV" placeholder="XXX" value="" required>
+                        <div class="invalid-feedback">
+                          Ingresa el código de seguridad
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label for="crecirCardExpDate">Vencimiento</label>
+                        <input type="text" class="form-control" id="crecirCardExpDate" placeholder="MM/AA" value="" required>
+                        <div class="invalid-feedback">
+                          Ingresa la fecha de vencimiento
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    <div class="row">
+                      <div class="custom-control custom-radio">
+                        <input id="bankingRadio" name="paymentType" type="radio" class="custom-control-input">
+                        <label class="custom-control-label" for="bankingRadio">Transferencia bancaria</label>
+                      </div>
+                    </div>
+                    <div id="transferenciaBancaria">
+                    <hr>
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label for="bankAccountNumber">Número de cuenta</label>
+                        <input type="text" class="form-control" id="bankAccountNumber" placeholder="Por ej: 000000000-00001" value="" required>
+                        <div class="invalid-feedback">
+                          Ingresa un número de cuenta
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    <button type="submit" class="btn btn-dark btn-block">Confirmar
+                      Compra</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </form>
   </main>
-  <div class="modal fade" tabindex="-1" role="dialog" id="contidionsModal">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Forma de pago</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="container">
-            <div class="row">
-              <div class="custom-control custom-radio">
-                <input id="creditCardPaymentRadio" name="paymentType" type="radio" class="custom-control-input">
-                <label class="custom-control-label" for="creditCardPaymentRadio">Tarjeta de crédito</label>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="shippingStreet">Número de tarjeta</label>
-                <input type="text" class="form-control" id="creditCardNumber" placeholder="" value="">
-                <div class="invalid-feedback">
-                  Ingresa un número de tarjeta
-                </div>
-              </div>
-              <div class="col-md-4 mb-3">
-                <label for="shippingStreetNumber">Código de seg.</label>
-                <input type="number" class="form-control" id="creditCardSecurityCode" placeholder="" value="">
-                <div class="invalid-feedback">
-                  Ingresa el código de seguridad
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="dueDate">Vencimiento (MM/AA)</label>
-                <input type="text" class="form-control" id="dueDate" placeholder="" value="">
-                <div class="invalid-feedback">
-                  Ingresa la fecha de vencimiento
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="custom-control custom-radio">
-                <input id="bankingRadio" name="paymentType" type="radio" class="custom-control-input">
-                <label class="custom-control-label" for="bankingRadio">Transferencia bancaria</label>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="bankAccountNumber">Número de cuenta</label>
-                <input type="text" class="form-control" id="bankAccountNumber" placeholder="" value="">
-                <div class="invalid-feedback">
-                  Ingresa un número de cuenta
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-          </div>
-        </div>
-      </div>
+  <div id="spinner-wrapper">
+    <div class="lds-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
-    <div id="spinner-wrapper">
-      <div class="lds-ring">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
+  </div>
 </body>
 
 </html>

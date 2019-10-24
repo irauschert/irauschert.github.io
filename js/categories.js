@@ -31,12 +31,10 @@ function sortCategories(criteria, array){
             return 0;
         });
     }
-
     return result;
 }
 
 function showCategoriesList(){
-
     let htmlContentToAppend = "";
     for(let i = 0; i < currentCategoriesArray.length; i++){
         let category = currentCategoriesArray[i];

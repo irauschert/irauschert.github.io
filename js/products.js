@@ -66,21 +66,21 @@ function showProductsList(array) {
         </div>
         <br>
         `
-            document.getElementById("productsList").innerHTML = htmlContentToAppend;
         }
+    document.getElementById("productsList").innerHTML = htmlContentToAppend;
     }
 }
 
 function sortAndShowProducts(sortCriteria, productsArray) {
     currentSortCriteria = sortCriteria;
-    if(productsArray != undefined){
+    if (productsArray != undefined) {
         currentProductsArray = productsArray;
     }
     currentProductsArray = sortProducts(currentSortCriteria, productsArray);
     showProductsList(currentProductsArray);
 }
 
-function showUsername(){
+function showUsername() {
     var usernameToShow = `Bienvenide ` + localStorage.getItem("username") + `!`;
 
     document.getElementById("usernameFromLogin").innerHTML = usernameToShow;

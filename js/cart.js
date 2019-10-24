@@ -1,73 +1,119 @@
 let productUnitCost = 0;
 let productCurrency = "";
-let subtotal = 0;
+let subtotalUYU = 0;
+let subtotalUSD = 0;
+let shippingCostUYU = 0;
+let shippingCostUSD = 0;
 let shippingPercentage = 0.15;
 let total = 0;
 let paymentTypeSelected = false;
 const CREDIT_CARD_PAYMENT = "Tarjeta de crédito";
 const BANKING_PAYMENT = "Transferencia bancaria";
 let ERROR_MSG = "Ha habido un error :(, verifica qué pasó.";
+currentArticlesArray = [];
 
 //Función que se utiliza para actualizar los costos de publicación
 function updateTotalCosts() {
+    totalUYU = subtotalUYU + shippingCostUYU;
+    totalUSD = subtotalUSD + shippingCostUSD;
+    
+    totalHTMLtoAppend = `
+    <h4 class="text-center">Total a pagar: UYU ` + totalUYU + ` y USD ` + totalUSD + ` </h4>`
 
+    document.getElementById("total").innerHTML = totalHTMLtoAppend;
+}
+
+function updateShippingCost(shippingPercentage){
+    shippingCostUYU = Math.round(shippingPercentage*subtotalUYU*100)/100;
+    shippingCostUSD = Math.round(shippingPercentage*subtotalUSD*100)/100;
+    
+    shippingCostHTMLtoAppend = `
+        <p> UYU ` + shippingCostUYU + `</p><p>USD ` + shippingCostUSD + ` </p>
+     `
+    document.getElementById("shippingCost").innerHTML = shippingCostHTMLtoAppend;
+    updateTotalCosts();
 }
 
 function updateSubtotal(array) {
-    for (let i = 0; i < array.length; i++)
-        newArticleCount = document.getElementById(`articleCount` + i).value;
-    article = array[0]
-    article.count.value = newArticleCount;
-    alert("Nueva cantidad: " + newArticleCount);
+    newArticleCount = document.getElementById("articleCount").value;
+    for (let i = 0; i < array.length; i++) {
+        let article = array[i];
+        article.count = newArticleCount;
+    }
+
     showArticles(array);
 }
 
 function showPaymentTypeNotSelected() {
-
 }
 
 function hidePaymentTypeNotSelected() {
-
+    if(document.getElementById("creditCardPaymentRadio").ckecked) {
+        document.getElementById("bankingRadio").style.visibility = "hidden";
+    }
+    else {
+        document.getElementById("creditCardPaymentRadio").style.visibility = "hidden";
+    }
 }
 
 function showArticles(array) {
-    let htmlContentToAppend = "";
-    let subtotal = 0;
+    let articlesHTMLtoAppend = "";
+    let subtotalHTMLtoAppend = "";
+    subtotalUYU = 0;
+    subtotalUSD = 0;
+
     for (let i = 0; i < array.length; i++) {
         let article = array[i];
-        htmlContentToAppend += `
-            <div class="row">
-                <div class="col-3">
-                    <img class="rounded float-left img-thumbnail" src="` + article.src + `">
-                </div>
-                <div class="col-7">
-                    <div class="text-left">
-                        <h5>` + article.name + `</h5>
-                        <p> Precio unitario: ` + article.currency + ` ` + article.unitCost + `</p>
-                        
-                        <div class="form-row">
-                        <p>Cantidad: </p>
-                        <div class="col-2">
-                                <input class="form-control form-control-sm" id="articleCount`+ i +`" type="number" value="` + article.count + `" size="5">
-                            </div>
+        articlesHTMLtoAppend = `
+            <div class="media">
+                <img src="` + article.src + `" class="align-self-center mr-3">
+                <div class="media-body">
+                    <div class="row">
+                        <div class="col">
+                            <h4>` + article.name + `</h4>
+                            <p> Precio unitario: ` + article.currency + ` ` + article.unitCost + `</p>
+                        </div>
+                        <div class="col-2">    
+                            <form>
+                                <label for="articleCount">Cantidad</label>
+                                <input id="articleCount" class="form-control form-control-sm" id="articleCount" type="number" min="0" value="` + article.count + `">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p class="text-right">Subtotal del Item: ` + article.currency + ` ` + article.unitCost*article.count + `</p>
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <h5>Subtotal: ` + article.currency + ` ` + article.unitCost * article.count + `</h5>
-                </div>
             </div>
-            <hr>
-
-        `
-        subtotal += article.unitCost * article.count;
+        `       
+        if (article.currency == "UYU"){
+            subtotalUYU += article.unitCost * article.count;
+        } else {
+            subtotalUSD += article.unitCost * article.count;
+        }
     }
-    htmlContentToAppend += `
-    <div align="right">
-        <h3>Total: ` + subtotal + `</h3>
-    </div>
-    `
-    document.getElementById("articlesInCart").innerHTML = htmlContentToAppend;
+    
+    subtotalHTMLtoAppend = `
+        <div class ="container">
+        <hr>
+            <div align="right">
+                <h6>Subtotal en UYU ` + subtotalUYU + `</h6>
+                <h6>Subtotal en USD ` + subtotalUSD + `</h6>
+                <hr>
+            </div>
+        </div>
+         `
+    document.getElementById("articlesHTML").innerHTML = articlesHTMLtoAppend;
+    document.getElementById("subtotalHTML").innerHTML = subtotalHTMLtoAppend;
+
+    document.getElementById("articleCount").addEventListener("change", function () {
+        document.getElementById('goldradio').checked = false;
+        document.getElementById('premiumradio').checked = false;
+        document.getElementById('standardradio').checked = false;
+        updateSubtotal(currentArticlesArray);
+    });
 }
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
@@ -77,17 +123,30 @@ document.addEventListener("DOMContentLoaded", function (e) {
     getJSONData(CART_INFO_URL).then(function (resultObj) {
         if (resultObj.status === "ok") {
             articles = resultObj.data;
-            articlesArray = articles.articles;
-            showArticles(articlesArray);
+            currentArticlesArray = articles.articles;
+            showArticles(currentArticlesArray);
         }
     });
 
-    for (let i = 0; i < articlesArray.length; i++) {
-        document.getElementById(`articleCount` + i).addEventListener("change", function () {
-            let article = articlesArray[i];
-            newArticleCount = document.getElementById(`articleCount` + i).value;
-            article.count = newArticleCount;
-            updateSubtotal(articlesArray);
-        });
-    };
+    document.getElementById("goldradio").addEventListener("change", function () {
+        updateShippingCost(0.15);
+    });
+
+    document.getElementById("premiumradio").addEventListener("change", function () {
+        updateShippingCost(0.07);
+    });
+
+    document.getElementById("standardradio").addEventListener("change", function () {
+        updateShippingCost(0.05);
+    });
+
+    document.getElementById("bankingRadio").addEventListener("change", function(){
+        document.getElementById("tarjetaDeCredito").style.display = "none";
+        document.getElementById("transferenciaBancaria").style.display = "";
+    });
+
+    document.getElementById("creditCardPaymentRadio").addEventListener("change", function(){
+        document.getElementById("transferenciaBancaria").style.display = "none";
+        document.getElementById("tarjetaDeCredito").style.display = "";
+    });
 });
