@@ -16,17 +16,17 @@ currentArticlesArray = [];
 function updateTotalCosts() {
     totalUYU = subtotalUYU + shippingCostUYU;
     totalUSD = subtotalUSD + shippingCostUSD;
-    
+
     totalHTMLtoAppend = `
     <h4 class="text-center">Total a pagar: UYU ` + totalUYU + ` y USD ` + totalUSD + ` </h4>`
 
     document.getElementById("total").innerHTML = totalHTMLtoAppend;
 }
 
-function updateShippingCost(shippingPercentage){
-    shippingCostUYU = Math.round(shippingPercentage*subtotalUYU*100)/100;
-    shippingCostUSD = Math.round(shippingPercentage*subtotalUSD*100)/100;
-    
+function updateShippingCost(shippingPercentage) {
+    shippingCostUYU = Math.round(shippingPercentage * subtotalUYU * 100) / 100;
+    shippingCostUSD = Math.round(shippingPercentage * subtotalUSD * 100) / 100;
+
     shippingCostHTMLtoAppend = `
         <p> UYU ` + shippingCostUYU + `</p><p>USD ` + shippingCostUSD + ` </p>
      `
@@ -44,11 +44,38 @@ function updateSubtotal(array) {
     showArticles(array);
 }
 
-function showPaymentTypeNotSelected() {
+function diasCorridos(diasHabiles) {
+    var businessDays = diasHabiles
+    var j = 1;
+    while (businessDays > 0) {
+        var fecha = new Date();
+        fecha.setDate(fecha.getDate() + j++);
+        if (fecha.getDay() != 0 && fecha.getDay() != 6) {
+            businessDays--;
+        };
+    }
+    return fecha;
+}
+
+function showETA(menor, mayor) {
+    semana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
+    mes = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"]
+    
+    firstETA = diasCorridos(menor);
+    dia = semana[firstETA.getDay()];
+    dd = firstETA.getDate();
+    mm = mes[firstETA.getMonth()];
+    
+    secondETA = diasCorridos(mayor);
+    otroDia = semana[secondETA.getDay()];
+    DD = secondETA.getDate();
+    MM = mes[secondETA.getMonth()];
+
+    document.getElementById("ETA").innerHTML = `Recibelo entre el ` + dia + ` ` + dd + ` de ` + mm + ` y el ` + otroDia + ` ` + DD + ` de ` + MM;
 }
 
 function hidePaymentTypeNotSelected() {
-    if(document.getElementById("creditCardPaymentRadio").ckecked) {
+    if (document.getElementById("creditCardPaymentRadio").ckecked) {
         document.getElementById("bankingRadio").style.visibility = "hidden";
     }
     else {
@@ -82,19 +109,19 @@ function showArticles(array) {
                     </div>
                     <div class="row">
                         <div class="col">
-                            <p class="text-right">Subtotal del Item: ` + article.currency + ` ` + article.unitCost*article.count + `</p>
+                            <p class="text-right">Subtotal del Item: ` + article.currency + ` ` + article.unitCost * article.count + `</p>
                         </div>
                     </div>
                 </div>
             </div>
-        `       
-        if (article.currency == "UYU"){
+        `
+        if (article.currency == "UYU") {
             subtotalUYU += article.unitCost * article.count;
         } else {
             subtotalUSD += article.unitCost * article.count;
         }
     }
-    
+
     subtotalHTMLtoAppend = `
         <div class ="container">
         <hr>
@@ -130,22 +157,25 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
     document.getElementById("goldradio").addEventListener("change", function () {
         updateShippingCost(0.15);
+        showETA(2, 5);
     });
 
     document.getElementById("premiumradio").addEventListener("change", function () {
         updateShippingCost(0.07);
+        showETA(5, 8);
     });
 
     document.getElementById("standardradio").addEventListener("change", function () {
         updateShippingCost(0.05);
+        showETA(12, 15);
     });
 
-    document.getElementById("bankingRadio").addEventListener("change", function(){
+    document.getElementById("bankingRadio").addEventListener("change", function () {
         document.getElementById("tarjetaDeCredito").style.display = "none";
         document.getElementById("transferenciaBancaria").style.display = "";
     });
 
-    document.getElementById("creditCardPaymentRadio").addEventListener("change", function(){
+    document.getElementById("creditCardPaymentRadio").addEventListener("change", function () {
         document.getElementById("transferenciaBancaria").style.display = "none";
         document.getElementById("tarjetaDeCredito").style.display = "";
     });

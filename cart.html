@@ -84,8 +84,7 @@
                 <div class="col-lg-10 col-md-8">
                   <form>
                     <div class="custom-control custom-radio">
-                      <input id="goldradio" name="publicationType" type="radio" class="custom-control-input "
-                        required>
+                      <input id="goldradio" name="publicationType" type="radio" class="custom-control-input " required>
                       <label class="custom-control-label" for="goldradio">Premium (2-5 días) Costo del 15% sobre el
                         subtotal</label>
                     </div>
@@ -102,7 +101,9 @@
                         el subtotal</label>
                     </div>
                   </form>
-                  <span id="ETA"></span>
+                  <small class="text-muted">
+                    <span id="ETA"></span>
+                  </small>
                 </div>
                 <div class="col-lg-2 col-md-4">
                   <p class="text-right">Costo del envio: <span id=shippingCost> - </span></p>
@@ -130,128 +131,132 @@
                   <div class="form-row">
                     <div class="col-lg-10">
                       <div class="form-group">
-                        <label for="inputAddress">Dirección</label>
-                        <input type="text" class="form-control" id="inputStreetName" placeholder="Calle">
+                        <label for="inputStreetName">Dirección</label>
+                        <input type="text" class="form-control" id="inputStreetName" placeholder="Calle" required>
                       </div>
                     </div>
                     <div class="col-lg-2">
                       <div class="form-group">
-                        <label for="inputAddress2">Numero</label>
-                        <input type="number" class="form-control" id="inputStreetNumber" placeholder="Nº">
+                        <label for="inputStreetNumber">Numero</label>
+                        <input type="number" class="form-control" id="inputStreetNumber" placeholder="Nº de Puerta"
+                          required>
                       </div>
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="col-lg-10">
                       <div class="form-group">
-                        <label for="inputAddress">Esquina</label>
-                        <input type="text" class="form-control" id="inputStreetName" placeholder="Calle">
+                        <label for="inputCornerName">Esquina</label>
+                        <input type="text" class="form-control" id="inputCornerName" placeholder="Calle" required>
                       </div>
                     </div>
                     <div class="col-lg-2">
                       <div class="form-group">
-                        <label for="inputAddress2">CP</label>
-                        <input type="number" class="form-control" id="inputStreetNumber" placeholder="Nº">
+                        <label for="inputZIPCode">CP</label>
+                        <input type="number" class="form-control" id="inputZIPCode" required>
                       </div>
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group col-6">
                       <label for="inputCity">Ciudad</label>
-                      <input type="text" class="form-control" id="inputCity">
+                      <input type="text" class="form-control" id="inputCity" required>
                     </div>
                     <div class="form-group col-6">
-                      <label for="inputState">Pais</label>
-                      <input id="inputState" class="form-control">
+                      <label for="inputCountry">Pais</label>
+                      <input id="inputCountry" class="form-control" required>
                     </div>
+                  </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-outline-dark">
+                      Confirmar Dirección
+                    </button>
                   </div>
                 </form>
               </div>
             </div>
           </div>
-          <div class="card">
-            <div class="card-header" id="headingThree">
-              <h2 class="mb-0">
-                <button class="btn btn-light btn-block collapsed" type="button" data-toggle="collapse"
-                  data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  Selecciona una forma de pago
-                </button>
-              </h2>
+        </div>
+        <div class="card">
+          <div class="card-header" id="headingThree">
+            <h2 class="mb-0">
+              <button type="button" class="btn btn-light btn-block" data-toggle="modal" data-target="#modalFormaDePago">
+                Seleccione una forma de pago
+              </button>
+            </h2>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="modalFormaDePago" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Seleccionar Forma de Pago</h5>
             </div>
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-              <div class="card-body">
-                <div class="container">
-                  <form>
-                    <div class="row">
-                      <div class="custom-control custom-radio">
-                        <input id="creditCardPaymentRadio" name="paymentType" type="radio" class="custom-control-input" required>
-                        <label class="custom-control-label" for="creditCardPaymentRadio">Tarjeta de crédito</label>
-                      </div>
+            <div class="modal-body">
+              <div class="container">
+                <form>
+                  <div class="row">
+                    <div class="custom-control custom-radio">
+                      <input id="creditCardPaymentRadio" name="paymentType" type="radio" class="custom-control-input"
+                        required>
+                      <label class="custom-control-label" for="creditCardPaymentRadio">Tarjeta de crédito</label>
                     </div>
-                    <hr>
-                    <div id="tarjetaDeCredito">
+                  </div>
+                  <hr>
+                  <div id="tarjetaDeCredito">
                     <div class="row">
                       <div class="col-md-6 mb-3">
-                        <label for="creditCardNumber" required>Número de tarjeta</label>
-                        <input type="text" class="form-control" id="creditCardNumber" placeholder="XXXX-XXXX-XXXX-XXXX" value="" required>
-                        <div class="invalid-feedback">
-                          Ingresa un número de tarjeta
-                        </div>
+                        <label for="creditCardNumber">Número de tarjeta</label>
+                        <input type="number" class="form-control" id="creditCardNumber"
+                          placeholder="Ej:1234 5678 9101 1121" required>
                       </div>
                       <div class="col-md-4 mb-3">
                         <label for="creditCardCVV">Código de seg.</label>
-                        <input type="number" class="form-control" id="creditCardCVV" placeholder="XXX" value="" required>
-                        <div class="invalid-feedback">
-                          Ingresa el código de seguridad
-                        </div>
+                        <input type="number" class="form-control" id="creditCardCVV" max="999" placeholder="XXX"
+                          required>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-6 mb-3">
-                        <label for="crecirCardExpDate">Vencimiento</label>
-                        <input type="text" class="form-control" id="crecirCardExpDate" placeholder="MM/AA" value="" required>
-                        <div class="invalid-feedback">
-                          Ingresa la fecha de vencimiento
-                        </div>
+                        <label for="creditCardExpDate">Vencimiento</label>
+                        <input type="text" class="form-control" id="creditCardExpDate" placeholder="MM/AA" required>
                       </div>
                     </div>
                   </div>
-                    <div class="row">
-                      <div class="custom-control custom-radio">
-                        <input id="bankingRadio" name="paymentType" type="radio" class="custom-control-input">
-                        <label class="custom-control-label" for="bankingRadio">Transferencia bancaria</label>
-                      </div>
+                  <div class="row">
+                    <div class="custom-control custom-radio">
+                      <input id="bankingRadio" name="paymentType" type="radio" class="custom-control-input">
+                      <label class="custom-control-label" for="bankingRadio">Transferencia bancaria</label>
                     </div>
-                    <div id="transferenciaBancaria">
+                  </div>
+                  <div id="transferenciaBancaria">
                     <hr>
                     <div class="row">
                       <div class="col-md-6 mb-3">
                         <label for="bankAccountNumber">Número de cuenta</label>
-                        <input type="text" class="form-control" id="bankAccountNumber" placeholder="Por ej: 000000000-00001" value="" required>
+                        <input type="number" class="form-control" id="bankAccountNumber"
+                          placeholder="Por ej: 000000000-00001" required>
                         <div class="invalid-feedback">
                           Ingresa un número de cuenta
                         </div>
                       </div>
                     </div>
                   </div>
-                    <button type="submit" class="btn btn-dark btn-block">Confirmar
-                      Compra</button>
-                  </form>
-                </div>
               </div>
             </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-dark btn-lg btn-block">Confirmar
+                Compra</button>
+            </div>
+            </form>
           </div>
         </div>
       </div>
-      </form>
   </main>
   <div id="spinner-wrapper">
-    <div class="lds-ring">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
+    <div class="lds-ring"></div>
   </div>
 </body>
 
