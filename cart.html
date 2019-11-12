@@ -25,6 +25,7 @@
   <script src="js/vendor/bootbox.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/cart.js"></script>
+  <script src="js/paises.js"></script>
 </head>
 
 <body>
@@ -65,7 +66,6 @@
         <p>Aún no tienes nada en el carrito</p>
       </div>
     </div>
-    <div id="subtotalPerArticleHTML"></div>
     <div id="subtotalHTML"></div>
     <div class="container">
       <div class="accordion" id="accordionExample">
@@ -82,9 +82,10 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-lg-10 col-md-8">
-                  <form>
+                  <form id="shippingCostForm" class="needs-validation" novalidate>
                     <div class="custom-control custom-radio">
-                      <input id="goldradio" name="publicationType" type="radio" class="custom-control-input " required>
+                      <input id="goldradio" name="publicationType" type="radio" class="custom-control-input " checked=""
+                        required>
                       <label class="custom-control-label" for="goldradio">Premium (2-5 días) Costo del 15% sobre el
                         subtotal</label>
                     </div>
@@ -127,19 +128,24 @@
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
               <div class="card-body">
-                <form>
+                <form id="shippingAdressForm" class="needs-validation" novalidate>
                   <div class="form-row">
                     <div class="col-lg-10">
                       <div class="form-group">
                         <label for="inputStreetName">Dirección</label>
-                        <input type="text" class="form-control" id="inputStreetName" placeholder="Calle" required>
+                        <input type="text" class="form-control" id="inputStreetName" placeholder="Calle">
+                        <div class="invalid-feedback">
+                          Debes seleccionar una direccion
+                        </div>
                       </div>
                     </div>
                     <div class="col-lg-2">
                       <div class="form-group">
                         <label for="inputStreetNumber">Numero</label>
-                        <input type="number" class="form-control" id="inputStreetNumber" placeholder="Nº de Puerta"
-                          required>
+                        <input type="number" class="form-control" id="inputStreetNumber" placeholder="Nº de Puerta">
+                        <div class="invalid-feedback">
+                          No seas mano de mulita!
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -147,28 +153,40 @@
                     <div class="col-lg-10">
                       <div class="form-group">
                         <label for="inputCornerName">Esquina</label>
-                        <input type="text" class="form-control" id="inputCornerName" placeholder="Calle" required>
+                        <input type="text" class="form-control" id="inputCornerName" placeholder="Calle">
+                        <div class="invalid-feedback">
+                          No seas mano de mulita!
+                        </div>
                       </div>
                     </div>
                     <div class="col-lg-2">
                       <div class="form-group">
                         <label for="inputZIPCode">CP</label>
-                        <input type="number" class="form-control" id="inputZIPCode" required>
+                        <input type="number" class="form-control" id="inputZIPCode">
+                        <div class="invalid-feedback">
+                          No seas mano de mulita!
+                        </div>
                       </div>
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group col-6">
-                      <label for="inputCity">Ciudad</label>
-                      <input type="text" class="form-control" id="inputCity" required>
+                      <label for="country">Seleccione un Pais</label>
+                      <select class="form-control" id="country" name="country"></select>
+                    </div>
+                    <div class="invalid-feedback">
+                      No seas mano de mulita!
                     </div>
                     <div class="form-group col-6">
-                      <label for="inputCountry">Pais</label>
-                      <input id="inputCountry" class="form-control" required>
+                      <label for="state">Seleccione un Departamento</label>
+                      <select class="form-control" id="state" name="state"></select>
+                      <div class="invalid-feedback">
+                        No seas mano de mulita!
+                      </div>
                     </div>
                   </div>
                   <div class="text-center">
-                    <button type="submit" class="btn btn-outline-dark">
+                    <button type="button" onclick="validateDataFromForms()" class="btn btn-outline-dark">
                       Confirmar Dirección
                     </button>
                   </div>
@@ -196,7 +214,7 @@
             </div>
             <div class="modal-body">
               <div class="container">
-                <form>
+                <form class="needs-validation" novalidate>
                   <div class="row">
                     <div class="custom-control custom-radio">
                       <input id="creditCardPaymentRadio" name="paymentType" type="radio" class="custom-control-input"
@@ -210,7 +228,10 @@
                       <div class="col-md-6 mb-3">
                         <label for="creditCardNumber">Número de tarjeta</label>
                         <input type="number" class="form-control" id="creditCardNumber"
-                          placeholder="Ej:1234 5678 9101 1121" required>
+                          placeholder="Ej: 1234 5678 9101 1121" required>
+                        <div class="invalid-feedback">
+                          Please choose a username.
+                        </div>
                       </div>
                       <div class="col-md-4 mb-3">
                         <label for="creditCardCVV">Código de seg.</label>
