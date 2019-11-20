@@ -26,6 +26,12 @@
   <script src="js/init.js"></script>
   <script src="js/cart.js"></script>
   <script src="js/paises.js"></script>
+
+  <style>
+    .error {color:lightcoral;}
+    input.error,select.error {border: 1px solid firebrick;}
+    input.validated {border: 2px solid lightgreen;}
+  </style>
 </head>
 
 <body>
@@ -56,7 +62,7 @@
       </div>
     </div>
   </nav>
-  <main role="main">
+  <main>
     <div class="text-center p-4">
       <h2>Carrito de compras</h2>
       <p class="lead">Verás aquí todos los prodctos que hayas agregado a tu carrito.</p>
@@ -82,7 +88,7 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-lg-10 col-md-8">
-                  <form id="shippingCostForm" class="needs-validation" novalidate>
+                  <form method="get" id="shippingCostForm" name="shippingCostForm">
                     <div class="custom-control custom-radio">
                       <input id="goldradio" name="publicationType" type="radio" class="custom-control-input " checked=""
                         required>
@@ -128,44 +134,36 @@
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
               <div class="card-body">
-                <form id="shippingAdressForm" class="needs-validation" novalidate>
+                <form method="get" id="adressForm" name="adressForm">
                   <div class="form-row">
-                    <div class="col-lg-10">
+                    <div class="col-8">
                       <div class="form-group">
                         <label for="inputStreetName">Dirección</label>
-                        <input type="text" class="form-control" id="inputStreetName" placeholder="Calle">
-                        <div class="invalid-feedback">
-                          Debes seleccionar una direccion
-                        </div>
+                        <input type="text" name="inputStreetName" class="form-control" id="inputStreetName" placeholder="Calle">
+                        <span id="errorInputStreet" class="error"></span>
                       </div>
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-4">
                       <div class="form-group">
                         <label for="inputStreetNumber">Numero</label>
-                        <input type="number" class="form-control" id="inputStreetNumber" placeholder="Nº de Puerta">
-                        <div class="invalid-feedback">
-                          No seas mano de mulita!
-                        </div>
+                        <input type="number" name="inputStreetNumber" class="form-control" id="inputStreetNumber" placeholder="Nº de Puerta">
+                        <span id="errorInputStreetNumber" class="error"></span>
                       </div>
                     </div>
                   </div>
                   <div class="form-row">
-                    <div class="col-lg-10">
+                    <div class="col-8">
                       <div class="form-group">
                         <label for="inputCornerName">Esquina</label>
                         <input type="text" class="form-control" id="inputCornerName" placeholder="Calle">
-                        <div class="invalid-feedback">
-                          No seas mano de mulita!
-                        </div>
+                        <span id="errorInputCorner" class="error"></span>
                       </div>
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-4">
                       <div class="form-group">
                         <label for="inputZIPCode">CP</label>
                         <input type="number" class="form-control" id="inputZIPCode">
-                        <div class="invalid-feedback">
-                          No seas mano de mulita!
-                        </div>
+                        <span id="errorInputCP" class="error"></span>
                       </div>
                     </div>
                   </div>
@@ -173,24 +171,23 @@
                     <div class="form-group col-6">
                       <label for="country">Seleccione un Pais</label>
                       <select class="form-control" id="country" name="country"></select>
-                    </div>
-                    <div class="invalid-feedback">
-                      No seas mano de mulita!
+                      <span id="errorInputCountry" class="error"></span>
                     </div>
                     <div class="form-group col-6">
                       <label for="state">Seleccione un Departamento</label>
                       <select class="form-control" id="state" name="state"></select>
-                      <div class="invalid-feedback">
-                        No seas mano de mulita!
-                      </div>
+                      <span id="errorInputState" class="error"></span>
                     </div>
                   </div>
                   <div class="text-center">
-                    <button type="button" onclick="validateDataFromForms()" class="btn btn-outline-dark">
+                    <button type="submit" class="btn btn-outline-dark">
                       Confirmar Dirección
                     </button>
                   </div>
                 </form>
+                <small class="text-muted">
+                  <span id="adressToShow"></span>
+                </small>
               </div>
             </div>
           </div>
@@ -204,77 +201,75 @@
             </h2>
           </div>
         </div>
-      </div>
-      <div class="modal fade" id="modalFormaDePago" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Seleccionar Forma de Pago</h5>
-            </div>
-            <div class="modal-body">
-              <div class="container">
-                <form class="needs-validation" novalidate>
-                  <div class="row">
-                    <div class="custom-control custom-radio">
-                      <input id="creditCardPaymentRadio" name="paymentType" type="radio" class="custom-control-input"
-                        required>
-                      <label class="custom-control-label" for="creditCardPaymentRadio">Tarjeta de crédito</label>
-                    </div>
-                  </div>
-                  <hr>
-                  <div id="tarjetaDeCredito">
+        <div class="modal fade" id="modalFormaDePago" tabindex="-1" role="dialog" aria-labelledby="modalFormaDePago"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Seleccionar Forma de Pago</h5>
+              </div>
+              <div class="modal-body">
+                <form method="get" id="paymentTypeForm" name="paymentTypeForm">
+                  <div class="container">
                     <div class="row">
-                      <div class="col-md-6 mb-3">
-                        <label for="creditCardNumber">Número de tarjeta</label>
-                        <input type="number" class="form-control" id="creditCardNumber"
-                          placeholder="Ej: 1234 5678 9101 1121" required>
-                        <div class="invalid-feedback">
-                          Please choose a username.
-                        </div>
-                      </div>
-                      <div class="col-md-4 mb-3">
-                        <label for="creditCardCVV">Código de seg.</label>
-                        <input type="number" class="form-control" id="creditCardCVV" max="999" placeholder="XXX"
+                      <div class="custom-control custom-radio">
+                        <input id="creditCardPaymentRadio" name="paymentType" type="radio" class="custom-control-input"
                           required>
+                        <label class="custom-control-label" for="creditCardPaymentRadio">Tarjeta de crédito</label>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-6 mb-3">
-                        <label for="creditCardExpDate">Vencimiento</label>
-                        <input type="text" class="form-control" id="creditCardExpDate" placeholder="MM/AA" required>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="custom-control custom-radio">
-                      <input id="bankingRadio" name="paymentType" type="radio" class="custom-control-input">
-                      <label class="custom-control-label" for="bankingRadio">Transferencia bancaria</label>
-                    </div>
-                  </div>
-                  <div id="transferenciaBancaria">
                     <hr>
-                    <div class="row">
-                      <div class="col-md-6 mb-3">
-                        <label for="bankAccountNumber">Número de cuenta</label>
-                        <input type="number" class="form-control" id="bankAccountNumber"
-                          placeholder="Por ej: 000000000-00001" required>
-                        <div class="invalid-feedback">
-                          Ingresa un número de cuenta
+                    <div id="tarjetaDeCredito">
+                      <div class="row">
+                        <div class="col-md-6 mb-3">
+                          <label for="creditCardNumber">Número de tarjeta</label>
+                          <input type="number" class="form-control" id="creditCardNumber"
+                            placeholder="Ej: 1234 5678 9101 1121">
+                            <span id="errorCardNumber" class="error"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                          <label for="creditCardCVV">Código de seg.</label>
+                          <input type="number" class="form-control" id="creditCardCVV" max="999" placeholder="XXX">
+                          <span id="errorCardCVV" class="error"></span>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 mb-3">
+                          <label for="creditCardExpDate">Vencimiento</label>
+                          <input type="text" class="form-control" id="creditCardExpDate" placeholder="MM/AA">
+                          <span id="errorCardExpDate" class="error"></span>
                         </div>
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="custom-control custom-radio">
+                        <input id="bankingRadio" name="paymentType" type="radio" class="custom-control-input" required>
+                        <label class="custom-control-label" for="bankingRadio">Transferencia bancaria</label>
+                      </div>
+                    </div>
+                    <div id="transferenciaBancaria">
+                      <hr>
+                      <div class="row">
+                        <div class="col-md-6 mb-3">
+                          <label for="bankAccountNumber">Número de cuenta</label>
+                          <input type="number" class="form-control" id="bankAccountNumber"
+                            placeholder="Por ej: 000000000-00001">
+                            <span id="errorBankAccountNumber" class="error"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-dark btn-lg btn-block">Confirmar
+                        Compra</button>
+                    </div>
                   </div>
+                </form>
               </div>
             </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-dark btn-lg btn-block">Confirmar
-                Compra</button>
-            </div>
-            </form>
           </div>
         </div>
       </div>
+    </div>
   </main>
   <div id="spinner-wrapper">
     <div class="lds-ring"></div>
