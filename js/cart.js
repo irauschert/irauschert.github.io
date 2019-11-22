@@ -184,6 +184,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
     document.getElementById("errorInputCP").style.display = 'none';
     document.getElementById("errorInputCountry").style.display = 'none';
     document.getElementById("errorInputState").style.display = 'none';
+    var valid = [false, false, false, false, false, false];
 
     formularioDireccionHTML.addEventListener('submit', function (evento) {
         evento.preventDefault();
@@ -193,14 +194,14 @@ document.addEventListener("DOMContentLoaded", function (e) {
         if (inputStreetNameHTML.value.length < 1) {
             errorInputStreetHTML.style.display = 'block'
             errorInputStreetHTML.innerHTML = `<small class="ml-3"> Debe ingresar el nombre de una calle</small>`
-            inputStreetNameHTML.classList.add('validated')
-            inputStreetNameHTML.classList.replace('validated', 'error')
-            inputStreetNameHTML.validity.valid = 'false';
+            inputStreetNameHTML.classList.add('error')
+            inputStreetNameHTML.classList.remove('validated')
+            valid[0] = false;
         } else {
             errorInputStreetHTML.style.display = 'none'
-            inputStreetNameHTML.classList.add('error')
-            inputStreetNameHTML.classList.replace('error', 'validated')
-            inputStreetNameHTML.validity.valid = 'true';
+            inputStreetNameHTML.classList.add('validated')
+            inputStreetNameHTML.classList.remove('error')
+            valid[0] = true;
         }
 
         let inputStreetNumberHTML = formularioDireccionHTML.inputStreetNumber;
@@ -208,12 +209,14 @@ document.addEventListener("DOMContentLoaded", function (e) {
         if (inputStreetNumberHTML.value == 0 || inputStreetNumberHTML.value > 10000) {
             errorInputStreetNumberHTML.style.display = 'block'
             errorInputStreetNumberHTML.innerHTML = `<small class="ml-3"> Debe ingresar un numero de puerta de hasta 4 digitos </small>`
-            inputStreetNumberHTML.classList.add('validated')
-            inputStreetNumberHTML.classList.replace('validated', 'error')
+            inputStreetNumberHTML.classList.add('error')
+            inputStreetNumberHTML.classList.remove('validated')
+            valid[1] = false;
         } else {
             errorInputStreetNumberHTML.style.display = 'none'
-            inputStreetNumberHTML.classList.add('error')
-            inputStreetNumberHTML.classList.replace('error', 'validated')
+            inputStreetNumberHTML.classList.add('validated')
+            inputStreetNumberHTML.classList.remove('error')
+            valid[1] = true;
         }
 
         let inputCornerNameHTML = formularioDireccionHTML.inputCornerName;
@@ -221,12 +224,14 @@ document.addEventListener("DOMContentLoaded", function (e) {
         if (inputCornerNameHTML.value.length < 1) {
             errorInputCornerHTML.style.display = 'block'
             errorInputCornerHTML.innerHTML = `<small class="ml-3"> Debe ingresar el nombre de una calle</small>`
-            inputCornerNameHTML.classList.add('validated')
-            inputCornerNameHTML.classList.replace('validated', 'error')
+            inputCornerNameHTML.classList.add('error')
+            inputCornerNameHTML.classList.remove('validated')
+            valid[2] = false;
         } else {
             errorInputCornerHTML.style.display = 'none'
-            inputCornerNameHTML.classList.add('error')
-            inputCornerNameHTML.classList.replace('error', 'validated')
+            inputCornerNameHTML.classList.add('validated')
+            inputCornerNameHTML.classList.remove('error')
+            valid[2] = true;
         }
 
         let inputCPHTML = formularioDireccionHTML.inputZIPCode;
@@ -234,12 +239,14 @@ document.addEventListener("DOMContentLoaded", function (e) {
         if (inputCPHTML.value < 1 || inputCPHTML.value > 100000) {
             errorInputCP.style.display = 'block'
             errorInputCP.innerHTML = `<small class="ml-3"> Debe ingresar un numero de 5 cifras</small>`
-            inputCPHTML.classList.add('validated')
-            inputCPHTML.classList.replace('validated', 'error')
+            inputCPHTML.classList.add('error')
+            inputCPHTML.classList.remove('validated')
+            valid[3] = false;
         } else {
             errorInputCP.style.display = 'none'
-            inputCPHTML.classList.add('error')
-            inputCPHTML.classList.replace('error', 'validated')
+            inputCPHTML.classList.add('validated')
+            inputCPHTML.classList.remove('error')
+            valid[3] = true;
         }
 
         let inputCountryHTML = formularioDireccionHTML.country;
@@ -247,12 +254,14 @@ document.addEventListener("DOMContentLoaded", function (e) {
         if (inputCountryHTML.value == -1) {
             errorInputCountry.style.display = 'block'
             errorInputCountry.innerHTML = `<small class="ml-3"> Debe seleccionar un Pais</small>`
-            inputCountryHTML.classList.add('validated')
-            inputCountryHTML.classList.replace('validated', 'error')
+            inputCountryHTML.classList.add('error')
+            inputCountryHTML.classList.remove('validated')
+            valid[4] = false;
         } else {
             errorInputCountry.style.display = 'none'
-            inputCountryHTML.classList.add('error')
-            inputCountryHTML.classList.replace('error', 'validated')
+            inputCountryHTML.classList.add('validated')
+            inputCountryHTML.classList.remove('error')
+            valid[4] = true;
         }
 
         let inputStateHTML = formularioDireccionHTML.state;
@@ -260,15 +269,17 @@ document.addEventListener("DOMContentLoaded", function (e) {
         if (inputStateHTML.value == 0) {
             errorInputState.style.display = 'block'
             errorInputState.innerHTML = `<small class="ml-3"> Debe seleccionar un Departamento </small>`
-            inputStateHTML.classList.add('validated')
-            inputStateHTML.classList.replace('validated', 'error')
+            inputStateHTML.classList.add('error')
+            inputStateHTML.classList.remove('validated')
+            valid[5] = false;
         } else {
             errorInputState.style.display = 'none'
-            inputStateHTML.classList.add('error')
-            inputStateHTML.classList.replace('error', 'validated')
+            inputStateHTML.classList.add('validated')
+            inputStateHTML.classList.remove('error')
+            valid[5] = true;
         }
 
-        if (inputStreetNameHTML.validity.valid == true) {
+        if (valid[0]&&valid[1]&&valid[2]&&valid[3]&&valid[4]&&valid[5]) {
             AdressHTML = `Recibira su compra en ${inputStreetNameHTML.value} ${inputStreetNumberHTML.value}, Codigo Postal ${inputCPHTML.value}.`;
             document.getElementById('adressToShow').innerHTML = AdressHTML;
         }
@@ -280,39 +291,86 @@ document.addEventListener("DOMContentLoaded", function (e) {
     document.getElementById("errorCardCVV").style.display = 'none';
     document.getElementById("errorCardExpDate").style.display = 'none';
     document.getElementById("errorBankAccountNumber").style.display = 'none';
+    var otherValid = [false, false, false, false];
 
     formularioPagoHTML.addEventListener('submit', function (evento) {
         evento.preventDefault();
 
-        let inputCreditCardNumberHTML = formularioPagoHTML.creditCardNumber;
-        let errorCreditCardNumberHTML = document.getElementById('errorCardNumber');
-        if (inputCreditCardNumberHTML.value > 10000000000000000 || inputCreditCardNumberHTML.value < 100000000000000) {
-            errorCreditCardNumberHTML.style.display = 'block'
-            errorCreditCardNumberHTML.innerHTML = `<small class="ml-3"> El numero ingresado no es valido</small>`
-            inputCreditCardNumberHTML.classList.add('validated')
-            inputCreditCardNumberHTML.classList.replace('validated', 'error')
-            inputCreditCardNumberHTML.validity.valid = 'false';
-        } else {
-            errorCreditCardNumberHTML.style.display = 'none'
-            inputCreditCardNumberHTML.classList.add('error')
-            inputCreditCardNumberHTML.classList.replace('error', 'validated')
-            inputCreditCardNumberHTML.validity.valid = 'true';
-        }
+        if (document.getElementById("creditCardPaymentRadio").checked) {
+            let inputCreditCardNumberHTML = formularioPagoHTML.creditCardNumber;
+            let errorCreditCardNumberHTML = document.getElementById('errorCardNumber');
+            if (inputCreditCardNumberHTML.value > 10000000000000000 || inputCreditCardNumberHTML.value < 100000000000000) {
+                errorCreditCardNumberHTML.style.display = 'block'
+                errorCreditCardNumberHTML.innerHTML = `<small class="ml-3"> Debes ingresar un numero de 16 cifras</small>`
+                inputCreditCardNumberHTML.classList.add('error')
+                inputCreditCardNumberHTML.classList.remove('validated')
+                otherValid[0] = false;
+            } else {
+                errorCreditCardNumberHTML.style.display = 'none'
+                inputCreditCardNumberHTML.classList.add('validated')
+                inputCreditCardNumberHTML.classList.remove('error')
+                otherValid[0] = true;
+            }
 
-        let inputCreditCardCVVHTML = formularioPagoHTML.creditCardCVV;
-        let errorCreditCardCVVHTML = document.getElementById('errorCardCVV');
-        if (inputCreditCardCVVHTML.value > 999 || inputCreditCardNumberHTML.value < 100) {
-            errorCreditCardCVVHTML.style.display = 'block'
-            errorCreditCardCVVHTML.innerHTML = `<small class="ml-3"> El numero ingresado no es valido</small>`
-            inputCreditCardCVVHTML.classList.add('validated')
-            inputCreditCardCVVHTML.classList.replace('validated', 'error')
-            inputCreditCardCVVHTML.validity.valid = 'false';
+            let inputCreditCardCVVHTML = formularioPagoHTML.creditCardCVV;
+            let errorCreditCardCVVHTML = document.getElementById('errorCardCVV');
+            if (inputCreditCardCVVHTML.value > 999 || inputCreditCardNumberHTML.value < 100) {
+                errorCreditCardCVVHTML.style.display = 'block'
+                errorCreditCardCVVHTML.innerHTML = `<small class="ml-3"> Debes ingresar un numero de 3 cifras</small>`
+                inputCreditCardCVVHTML.classList.add('error')
+                inputCreditCardCVVHTML.classList.remove('validated')
+                otherValid[1] = false;
+            } else {
+                errorCreditCardCVVHTML.style.display = 'none'
+                inputCreditCardCVVHTML.classList.add('validated')
+                inputCreditCardCVVHTML.classList.remove('error')
+                otherValid[1] = true;
+            }
+
+            let inputCreditCardExpHTML = formularioPagoHTML.creditCardExpDate;
+            let errorCreditCardExpHTML = document.getElementById('errorCardExpDate');
+            let patt = /^[0-1]\d\/\d{2}$/g;
+            if (!patt.test(inputCreditCardExpHTML.value)) {
+                errorCreditCardExpHTML.style.display = 'block'
+                errorCreditCardExpHTML.innerHTML = `<small class="ml-3"> Debes ingresar una fecha en el formato MM/AA</small>`
+                inputCreditCardExpHTML.classList.add('error')
+                inputCreditCardExpHTML.classList.remove('validated')
+                otherValid[2] = false;
+            } else {
+                var MM = inputCreditCardExpHTML.value.substr(0,2);
+                var AA = inputCreditCardExpHTML.value.substr(3,2);
+                if(parseInt(MM,10)>12||parseInt(AA,10)<20){
+                    errorCreditCardExpHTML.style.display = 'block'
+                    errorCreditCardExpHTML.innerHTML = `<small class="ml-3"> La fecha ingresada no es valida </small>`
+                    inputCreditCardExpHTML.classList.add('error')
+                    inputCreditCardExpHTML.classList.remove('validated')
+                    otherValid[2] = false;
+                } else
+                errorCreditCardExpHTML.style.display = 'none'
+                inputCreditCardExpHTML.classList.add('validated')
+                inputCreditCardExpHTML.classList.remove('error')
+                otherValid[2] = true;
+            }
         } else {
-            errorCreditCardCVVHTML.style.display = 'none'
-            inputCreditCardCVVHTML.classList.add('error')
-            inputCreditCardCVVHTML.classList.replace('error', 'validated')
-            inputCreditCardCVVHTML.validity.valid = 'true';
+            let inputBankAccountHTML = formularioPagoHTML.bankAccountNumber;
+            let errorBankAccountHTML = document.getElementById('errorBankAccountNumber');
+            let otherpatt = /^\d{9}\-\d{5}$/g;
+            if (!otherpatt.test(inputBankAccountHTML.value)) {
+                errorBankAccountHTML.style.display = 'block'
+                errorBankAccountHTML.innerHTML = `<small class="ml-3"> Debes ingresar una cuenta de banco valida</small>`
+                inputBankAccountHTML.classList.add('error')
+                inputBankAccountHTML.classList.remove('validated')
+                otherValid[3] = false;
+            } else {
+                errorBankAccountHTML.style.display = 'none'
+                inputBankAccountHTMLL.classList.add('validated')
+                inputBankAccountHTML.classList.remove('error')
+                otherValid[3] = true;
+            }
+        }
+    
+        if ((otherValid[0]&&otherValid[1]&&otherValid[2]) || valid[3]) {
+            alert("Su compra se realizó exitosamente")
         }
     })
-
 });

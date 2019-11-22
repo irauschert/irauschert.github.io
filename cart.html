@@ -30,7 +30,7 @@
   <style>
     .error {color:lightcoral;}
     input.error,select.error {border: 1px solid firebrick;}
-    input.validated {border: 2px solid lightgreen;}
+    input.validated, select.validated {border: 2px solid lightgreen;}
   </style>
 </head>
 
@@ -92,19 +92,19 @@
                     <div class="custom-control custom-radio">
                       <input id="goldradio" name="publicationType" type="radio" class="custom-control-input " checked=""
                         required>
-                      <label class="custom-control-label" for="goldradio">Premium (2-5 días) Costo del 15% sobre el
+                      <label class="custom-control-label" for="goldradio"><b>Premium</b>(2-5 días) Costo del 15% sobre el
                         subtotal</label>
                     </div>
                     <div class="custom-control custom-radio">
                       <input id="premiumradio" name="publicationType" type="radio" class="custom-control-input"
                         required>
-                      <label class=" custom-control-label" for="premiumradio">Express (5-8 días) Costo del 7% sobre el
+                      <label class=" custom-control-label" for="premiumradio"><b>Express</b> (5-8 días) Costo del 7% sobre el
                         subtotal</label>
                     </div>
                     <div class="custom-control custom-radio">
                       <input id="standardradio" name="publicationType" type="radio" class="custom-control-input"
                         required>
-                      <label class="custom-control-label" for="standardradio">Standard (12-15 días) Costo del 5% sobre
+                      <label class="custom-control-label" for="standardradio"><b>Standard</b> (12-15 días) Costo del 5% sobre
                         el subtotal</label>
                     </div>
                   </form>
@@ -169,12 +169,12 @@
                   </div>
                   <div class="form-row">
                     <div class="form-group col-6">
-                      <label for="country">Seleccione un Pais</label>
+                      <label for="country">Pais</label>
                       <select class="form-control" id="country" name="country"></select>
                       <span id="errorInputCountry" class="error"></span>
                     </div>
                     <div class="form-group col-6">
-                      <label for="state">Seleccione un Departamento</label>
+                      <label for="state">Departamento, Provincia o Estado</label>
                       <select class="form-control" id="state" name="state"></select>
                       <span id="errorInputState" class="error"></span>
                     </div>
@@ -244,7 +244,7 @@
                     <div class="row">
                       <div class="custom-control custom-radio">
                         <input id="bankingRadio" name="paymentType" type="radio" class="custom-control-input" required>
-                        <label class="custom-control-label" for="bankingRadio">Transferencia bancaria</label>
+                        <label class="custom-control-label" for="bankingRadio">Transferencia bancaria BROU</label>
                       </div>
                     </div>
                     <div id="transferenciaBancaria">
@@ -252,7 +252,7 @@
                       <div class="row">
                         <div class="col-md-6 mb-3">
                           <label for="bankAccountNumber">Número de cuenta</label>
-                          <input type="number" class="form-control" id="bankAccountNumber"
+                          <input type="string" class="form-control" id="bankAccountNumber"
                             placeholder="Por ej: 000000000-00001">
                             <span id="errorBankAccountNumber" class="error"></span>
                         </div>
