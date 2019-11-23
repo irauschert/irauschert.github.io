@@ -63,7 +63,7 @@ function showArticles(array) {
                         <small class="text-muted"> Precio unitario: ${article.currency} ${article.unitCost} </small>
                         <form>
                             <label for="articleCount">Cantidad</label>
-                            <input id="articleCount" class="form-control" type="number" min="0" value="` + article.count + `">
+                            <input id="articleCount${i}" class="form-control articleCount" type="number" min="0" value="` + article.count + `">
                             <button type="submit" disabled style="display: none" aria-hidden="true"></button>
                         </form>
                     </div>
@@ -73,42 +73,40 @@ function showArticles(array) {
     }
     articlesHTMLtoAppend += `</div>`
     document.getElementById("articlesHTML").innerHTML = articlesHTMLtoAppend;
-    showSubtotal(array);
-}
-
-function showSubtotal(array) {
-    let subtotalHTMLtoAppend = "";
-    subtotalUYU = 0;
-    subtotalUSD = 0;
 
     for (let i = 0; i < array.length; i++) {
-        let article = array[i];
-        if (article.currency == "UYU") {
-            subtotalUYU += article.unitCost * article.count;
-        } else {
-            subtotalUSD += article.unitCost * article.count;
-        }
-        subtotalHTMLtoAppend = `
+        document.getElementsByClassName("articleCount")[i].addEventListener("change", function () {
+            updateSubtotal(array);
+        });
+    }
+    showSubtotal(subtotalUSD, subtotalUYU);
+}
+
+function showSubtotal(subtotalUYU, subtotalUSD) {
+    subtotalHTMLtoAppend = `
         <div class ="container">
-        <hr>
+            <hr>
             <div align="right">
                 <h6>Subtotal en UYU ${subtotalUYU} </h6>
                 <h6>Subtotal en USD ${subtotalUSD} </h6>
-                <hr>
             </div>
+            <hr>
         </div>
          `
-        document.getElementById("subtotalHTML").innerHTML = subtotalHTMLtoAppend;
-    }
+    document.getElementById("subtotalHTML").innerHTML = subtotalHTMLtoAppend;
 }
 
 function updateSubtotal(array) {
-    newArticleCount = document.getElementById("articleCount").value;
+    subtotalUSD = 0;
+    subtotalUYU = 0;
     for (let i = 0; i < array.length; i++) {
-        let article = array[i];
-        article.count = newArticleCount;
+        productUnitCountArray[i] = document.getElementById(`articleCount${i}`).value;
+        subtotalUSD += productUnitCountArray[i] * productUnitCostUSDArray[i];
+        subtotalUYU += productUnitCountArray[i] * productUnitCostUYUArray[i];
     }
-    showSubtotal(array);
+    showSubtotal(subtotalUYU, subtotalUSD);
+    document.getElementById("goldradio").checked = true;
+    updateShippingCost(0.15);
 }
 
 function updateShippingCost(shippingPercentage) {
@@ -146,8 +144,20 @@ document.addEventListener("DOMContentLoaded", function (e) {
             currentArticlesArray.push({ name: "El Propio Celular", count: 1, unitCost: 259, currency: "USD", src: "img/cellPhone1.jpg" });
             currentArticlesArray.push({ name: "Piscina para niños", count: 1, unitCost: 790, currency: "UYU", src: "img/pool1.jpg" })
             currentArticlesArray.push({ name: "Inflable con Tobogan ", count: 1, unitCost: 2390, currency: "UYU", src: "img/inflable1.jpg" })
+
+            for (let i = 0; i < currentArticlesArray.length; i++) {
+                let article = currentArticlesArray[i];
+                productUnitCountArray[i] = article.count;
+                if (article.currency == "USD") {
+                    productUnitCostUSDArray[i] = article.unitCost;
+                    productUnitCostUYUArray[i] = 0;
+                } else {
+                    productUnitCostUYUArray[i] = article.unitCost;
+                    productUnitCostUSDArray[i] = 0;
+                }
+            }
             showArticles(currentArticlesArray);
-            showSubtotal(currentArticlesArray);
+            updateSubtotal(currentArticlesArray);
             updateShippingCost(0.15);
         }
     });
@@ -279,7 +289,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
             valid[5] = true;
         }
 
-        if (valid[0]&&valid[1]&&valid[2]&&valid[3]&&valid[4]&&valid[5]) {
+        if (valid[0] && valid[1] && valid[2] && valid[3] && valid[4] && valid[5]) {
             AdressHTML = `Recibira su compra en ${inputStreetNameHTML.value} ${inputStreetNumberHTML.value}, Codigo Postal ${inputCPHTML.value}.`;
             document.getElementById('adressToShow').innerHTML = AdressHTML;
         }
@@ -337,19 +347,20 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 inputCreditCardExpHTML.classList.remove('validated')
                 otherValid[2] = false;
             } else {
-                var MM = inputCreditCardExpHTML.value.substr(0,2);
-                var AA = inputCreditCardExpHTML.value.substr(3,2);
-                if(parseInt(MM,10)>12||parseInt(AA,10)<20){
+                var MM = inputCreditCardExpHTML.value.substr(0, 2);
+                var AA = inputCreditCardExpHTML.value.substr(3, 2);
+                if (parseInt(MM, 10) > 12 || parseInt(AA, 10) < 20) {
                     errorCreditCardExpHTML.style.display = 'block'
                     errorCreditCardExpHTML.innerHTML = `<small class="ml-3"> La fecha ingresada no es valida </small>`
                     inputCreditCardExpHTML.classList.add('error')
                     inputCreditCardExpHTML.classList.remove('validated')
                     otherValid[2] = false;
-                } else
-                errorCreditCardExpHTML.style.display = 'none'
-                inputCreditCardExpHTML.classList.add('validated')
-                inputCreditCardExpHTML.classList.remove('error')
-                otherValid[2] = true;
+                } else {
+                    errorCreditCardExpHTML.style.display = 'none'
+                    inputCreditCardExpHTML.classList.add('validated')
+                    inputCreditCardExpHTML.classList.remove('error')
+                    otherValid[2] = true;
+                }
             }
         } else {
             let inputBankAccountHTML = formularioPagoHTML.bankAccountNumber;
@@ -368,8 +379,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 otherValid[3] = true;
             }
         }
-    
-        if ((otherValid[0]&&otherValid[1]&&otherValid[2]) || valid[3]) {
+
+        if ((otherValid[0] && otherValid[1] && otherValid[2]) || otherValid[3]) {
             alert("Su compra se realizó exitosamente")
         }
     })
