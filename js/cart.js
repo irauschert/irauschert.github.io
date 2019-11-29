@@ -55,16 +55,21 @@ function showArticles(array) {
     for (let i = 0; i < array.length; i++) {
         let article = array[i];
         articlesHTMLtoAppend += `
-            <div class="col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2">
+            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-2">
                 <div class="card shadow-sm">
                     <img src=" ${article.src}" class="p-2 card-img-top">
                     <div class="card-body">
                         <h5> ${article.name} </h5>
                         <small class="text-muted"> Precio unitario: ${article.currency} ${article.unitCost} </small>
                         <form>
-                            <label for="articleCount">Cantidad</label>
-                            <input id="articleCount${i}" class="form-control articleCount" type="number" min="0" value="` + article.count + `">
-                            <button type="submit" disabled style="display: none" aria-hidden="true"></button>
+                            <div class="row">
+                                <div class="col-5">
+                                    <label for="articleCount">Cantidad</label>
+                                    <input id="articleCount${i}" class="form-control articleCount" type="number" min="0" value="` + article.count + `">
+                                    <button type="submit" disabled style="display: none" aria-hidden="true"></button>
+                                </div>
+
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -131,6 +136,12 @@ function updateTotalCosts() {
     document.getElementById("total").innerHTML = totalHTMLtoAppend;
 }
 
+function showUsername() {
+    var usernameToShow = `Bienvenide ` + localStorage.getItem("username") + `!`;
+
+    document.getElementById("usernameFromLogin").innerHTML = usernameToShow;
+}
+
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
@@ -139,6 +150,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
     getJSONData(CART_INFO_URL).then(function (resultObj) {
         if (resultObj.status === "ok") {
+            showUsername();
             articles = resultObj.data;
             currentArticlesArray = articles.articles;
             currentArticlesArray.push({ name: "El Propio Celular", count: 1, unitCost: 259, currency: "USD", src: "img/cellPhone1.jpg" });

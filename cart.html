@@ -26,7 +26,9 @@
  <script SRC="https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.2.2/math.js"></script>
   <script src="js/init.js"></script>
   <script src="js/cart.js"></script>
+  <script src="js/portada.js"></script>
   <script src="js/paises.js"></script>
+  
 
   <style>
     .error {color:lightcoral;}
@@ -36,31 +38,37 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-dark navbar-expand-lg site-header   sticky-top py-1 bg-dark">
-    <div class="container">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="categories.html">Categorías</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="products.html">Productos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="sell.html">Vender</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="cart.html">Mi carrito</a>
-          </li>
-        </ul>
-      </div>
+  <nav class="navbar navbar-dark navbar-expand-lg site-header sticky-top py-1 bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="portada.html">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="categories.html">Categorías</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="products.html">Productos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="sell.html">Vender</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            <span id=usernameFromLogin><span class="glyphicon glyphicon-user"></span></span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right bg-dark">
+            <button type="button" class="btn btn-dark text-center" onclick="location.href='cart.html';">Ver mi carrito <span class="glyphicon glyphicon-shopping-cart"></span> </button>
+            <div class="dropdown-divider"></div>
+            <button type="button" class="btn btn-dark text-center" href="index.html" onclick="signOut();">Cerrar Sesión <span class="glyphicon glyphicon-user"></span></button>
+          </div>
+        </li>
+      </ul>
     </div>
   </nav>
   <main>

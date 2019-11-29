@@ -17,5 +17,4 @@ function onLoad() {
         gapi.auth2.init();
     });
 }
-
 showUsername();
